@@ -1,0 +1,29 @@
+{% extends 'home.html' %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add_style.css' %}">
+{% endblock %}
+
+{% block title %}Add Produkt{% endblock %}
+
+{% block logged_in_content %}
+    <div class="container">
+        <h2>Add Produkt</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" >Produkt Hinzufügen</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block not_logged_in_content %}
+    <div class="not-logged-in">
+        <p>You must log in to add movies</p>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'home.html' %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail_style.css' %}">
+{% endblock %}
+
+{% block title %}Produkt detail{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Produkt detail</h2>
+
+    <table>
+        <tr>
+            <td><b>Name:</b></td>
+            <td>{{ current_produkt.name }}<br></td>
+        </tr>
+        <tr>
+            <td><b>Beschreibung:</b></td>
+            <td>{{ current_produkt.beschreibung }}<br></td>
+        </tr>
+        <tr>
+            <td><b>Bilder:</b></td>
+            {% for bild in bilder %}
+            <td><img src="{{ current_produkt.bilder.url }}" alt=" Bild von {{ current_produkt.name }}"><br></td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td><b>Produkt Typ:</b></td>
+            <td>{{ current_produkt.produkt_typ }}<br></td>
+        </tr>
+        <tr>
+            <td><b>Preis:</b></td>
+            <td>{{ current_produkt.preis }}<br></td>
+        </tr>
+        <tr>
+            <td><b>Created by:</b></td>
+            <td>{{ current_produkt.user }}<br></td>
+        </tr>
+    </table>
+
+    <br>
+    <a href="{% url 'produkt-list' %}">Zurück zu der Produkübersicht</a>
+    </div>
+{% endblock %}

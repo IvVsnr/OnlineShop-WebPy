@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>{% extends 'home.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/produkt_style.css' %}">
+{% endblock %}
+
+{% block title %}Produkt list{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>Produkt list</h2>
+
+    <ul>
+        {% for current_produkt in all_produkts %}
+            <li class="produkt-item">
+                <a href="{{ current_produkt.id }}/"><b>{{ current_produkt.name }}</b></a>
+                <br>
+                <p>
+                    <span>Produkt Typ:</span>{{ current_produkt.produkt_typ }} /
+                    <span>Preis:</span>{{ current_produkt.preis }}
+                </p>
+            </li>
+
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'produkt-add' %}">Add a new Produkt</a>
+
+    </div>
+
+{% endblock %}
