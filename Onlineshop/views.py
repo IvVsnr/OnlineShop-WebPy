@@ -17,6 +17,8 @@ def produkt_detail(request, **kwargs):
     current_produkt = Produkt.objects.get(id=produkt_id)
     current_user = request.user
     bilder = current_produkt.bilder.all() #Alle Bilder des Produkts
+    print('1',bilder)
+    print(produkt_id)
 
     context = {
         'current_produkt': current_produkt,

@@ -8,6 +8,3 @@ urlpatterns = [
     path('show/<int:pk>/', views.produkt_detail, name='produkt-detail'),
     path('add/', views.produkt_add, name='produkt-add'),
 ]
-
-if settings.DEBUG:
-    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

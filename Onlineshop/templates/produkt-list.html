@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>{% extends 'home.html' %}
+{% extends 'home.html' %}
 {% load static %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/produkt_style.css' %}">
 {% endblock %}
 
-{% block title %}Produkt list{% endblock %}
-
 {% block content %}
+    {% include 'header.html' %}
 
     <div class="container">
-        <h2>Produkt list</h2>
+        <h2>Produktliste</h2>
 
     <ul>
         {% for current_produkt in all_produkts %}
@@ -28,7 +19,7 @@
                 <br>
                 <p>
                     <span>Produkt Typ:</span>{{ current_produkt.produkt_typ }} /
-                    <span>Preis:</span>{{ current_produkt.preis }}
+                    <span>Preis:</span>{{ current_produkt.preis }}<span>€</span>
                 </p>
             </li>
 
@@ -39,4 +30,5 @@
 
     </div>
 
+    {% include 'footer.html' %}
 {% endblock %}

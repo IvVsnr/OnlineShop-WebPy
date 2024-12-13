@@ -32,13 +32,25 @@
         </tr>
         <tr>
             <td><b>Preis:</b></td>
-            <td>{{ current_produkt.preis }}<br></td>
+            <td>{{ current_produkt.preis }}<b>€</b><br></td>
         </tr>
         <tr>
             <td><b>Created by:</b></td>
             <td>{{ current_produkt.user }}<br></td>
         </tr>
+        <tr>
+            <td><b>Produkt PDF:</b></td>
+            <td>
+                {% if current_produkt.produkt_pdf %}
+                    <a href="{{ current_produkt.produkt_pdf.url }}" >Download PDF</a>
+                {% else %}
+                    Zu dem ausgewählten Produkt ist keine Produkt PDF verfügbar
+                {% endif %}
+            </td>
+        </tr>
     </table>
+
+
 
     <br>
     <a href="{% url 'produkt-list' %}">Zurück zu der Produkübersicht</a>
