@@ -50,10 +50,13 @@ table tr:nth-child(even) {
 
 /* Bild-Styling */
 img {
-    max-width: 100px;
+    max-width: 200px;  /* Maximale Breite auf 200px erhöhen */
     height: auto;
     margin-top: 10px;
     border-radius: 5px;
+    display: block;  /* Block-Display verwenden, um das Bild sauber darzustellen */
+    margin-left: auto;  /* Zentrieren des Bildes horizontal */
+    margin-right: auto;
 }
 
 /* Link zurück zur Produktübersicht */

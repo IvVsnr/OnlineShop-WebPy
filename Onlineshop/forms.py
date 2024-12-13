@@ -10,5 +10,5 @@ class ProductForm(forms.ModelForm):
         #fields = '__all__'
         exclude = ['user']
         widgets = {
-            'bilder': forms.ClearableFileInput(attrs={'multiple': True}),
+            'produkt_bild': forms.ClearableFileInput(attrs={'multiple': False}),
         }

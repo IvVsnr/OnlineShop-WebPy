@@ -31,7 +31,7 @@ class Produkt(models.Model):
     name = models.CharField(max_length=200)
     beschreibung = models.TextField(max_length=1000)
     preis = models.DecimalField(max_digits=10, decimal_places=2)
-    #bilder = models.ImageField(upload_to='produkt_bilder/')
+    produkt_bild = models.ImageField(upload_to='produkt_bilder/', null=True, blank=True)
     produkt_pdf = models.FileField(upload_to='produkt_pdfs/', null=True, blank=True)
     produkt_typ = models.CharField(max_length=100, choices=PRODUKT_TYPES)
 
@@ -48,10 +48,4 @@ class Produkt(models.Model):
     def __repr__(self):
         return f'{self.name} / {self.beschreibung} / {self.produkt_typ} / {self.preis}'
 
-class ProduktBild(models.Model):
-    produkt = models.ForeignKey(Produkt, related_name='bilder',  on_delete=models.CASCADE)
-    bilder = models.ImageField(upload_to='produkt_bilder/')
-
-    def __str__(self):
-        return f'{self.produkt.name} - Bild'
 

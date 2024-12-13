@@ -16,13 +16,12 @@ def produkt_detail(request, **kwargs):
     produkt_id = kwargs['pk']
     current_produkt = Produkt.objects.get(id=produkt_id)
     current_user = request.user
-    bilder = current_produkt.bilder.all() #Alle Bilder des Produkts
-    print('1',bilder)
-    print(produkt_id)
+    produkt_bild = current_produkt.produkt_bild
+
 
     context = {
         'current_produkt': current_produkt,
-        'bilder': bilder,
+        'produkt_bild': produkt_bild,
     }
 
     return render(request, 'produkt-detail.html', context)

@@ -21,10 +21,14 @@
             <td>{{ current_produkt.beschreibung }}<br></td>
         </tr>
         <tr>
-            <td><b>Bilder:</b></td>
-            {% for bild in bilder %}
-            <td><img src="{{ current_produkt.bilder.url }}" alt=" Bild von {{ current_produkt.name }}"><br></td>
-            {% endfor %}
+            <td><b>Produktbild:</b></td>
+            <td>
+            {% if produkt_bild %}
+                <img src="{{ produkt_bild.url }}" alt=" Bild von {{ current_produkt.name }}">
+            {% else %}
+                <p>Kein Bild verfügbar</p>
+            {% endif %}
+            </td>
         </tr>
         <tr>
             <td><b>Produkt Typ:</b></td>
