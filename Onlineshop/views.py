@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from Onlineshop.models import Produkt
 from .forms import ProductForm
@@ -45,3 +45,13 @@ def produkt_add(request):
         return render(request, 'produkt-add.html', {'form': form})
 
 
+def produkt_delete(request, **kwargs):
+    produkt_id = kwargs['pk']
+    current_produkt = Produkt.objects.get(id=produkt_id)
+    #produkt = get_object_or_404(Produkt, pk=pk)
+
+    if request.method == 'POST':
+        current_produkt.delete()
+        return redirect('produkt-list')
+
+    return render(request, 'produkt-delete-confirm.html', {'produkt': current_produkt})
