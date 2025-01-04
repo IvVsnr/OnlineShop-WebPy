@@ -77,6 +77,26 @@ a:hover {
     transition: background-color 0.3s;
 }
 
+a.float-cart {
+    #display: inline-block;
+    color: #27ae60;
+    text-decoration: none;
+    #padding: 10px 20px;
+    border: 2px solid #27ae60;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    float: right;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+a.float-cart:hover {
+    background-color: #27ae60;
+    color: #fff;
+}
+
 /* Responsive Anpassungen */
 @media (max-width: 768px) {
     .container {
