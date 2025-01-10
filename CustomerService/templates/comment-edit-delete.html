@@ -1,0 +1,34 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}Comment edit delete{% endblock %}
+
+{% block logged_in_content %}
+
+    <h2>Comment edit delete</h2>
+
+    {% if not has_delete_permission %}
+
+        You are not authorized to edit or delete comments.<br><br>
+
+    {% endif %}
+
+    {{ comment.user.username }} on {{ comment.timestamp }}<br>
+
+    {% if has_delete_permission %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" id="comment_id" name="comment_id" value="{{ comment.id }}">
+            <button type="submit" name="edit">Edit</button>
+            <button type="submit" name="delete">Delete</button>
+        </form>
+
+    {% else %}
+
+        {{ comment.text }}<br>
+
+    {% endif %}
+
+{% endblock %}

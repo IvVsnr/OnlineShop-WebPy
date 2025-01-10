@@ -1,9 +1,10 @@
 <header>
     <h1>Willkommen im Onlineshop</h1>
     <nav>
-        <ul>
-            <li><a href="{% url 'produkt-list' %}">Produkte</a></li>
-            <li><a href="{% url 'produkt-add' %}">Produkt hinzufügen</a></li>
-        </ul>
+
+            <a href="{% url 'produkt-list' %}">Produkte</a>
+            <a href="{% url 'produkt-add' %}">Produkt hinzufügen</a>
+            <a href="{% url 'produkt-search' %}">Produkt suchen</a>
+
     </nav>
 </header>

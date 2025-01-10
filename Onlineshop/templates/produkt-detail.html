@@ -11,6 +11,15 @@
     <div class="container">
         <h2>Produkt detail</h2>
 
+    {# Meldung wenn ein User schon ein Produkt bewertet hat #}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <table>
         <tr>
             <td><b>Name:</b></td>
@@ -52,13 +61,80 @@
                 {% endif %}
             </td>
         </tr>
+        <tr>
+            <td><b>Sterne:</b></td>
+            <td>{{ current_produkt.durchschnittsterne|floatformat:0 }} {# floatformat 0 damit keine nachkommerstelle angegeben ist, besser für die suche #}
+                {% for star in sterne_bewertung %}
+                    <span>{{ star }}</span>
+                {% endfor %}
+            </td>
+        </tr>
     </table>
-
-
 
     <br>
     <a href="{% url 'produkt-list' %}">Zurück zu der Produkübersicht</a>
     <br>
-    <a href="{% url 'produkt-delete' current_produkt.pk %}">Produkt löschen</a>
+    {% if request.user.has_delete_permission %} {# Dadurch kann nur der Berechtigte das Produkt löschen #}
+        <a href="{% url 'produkt-delete' current_produkt.pk %}">Produkt löschen</a>
+    {% endif %}
+
+    {# <h3>Bewertungen</h3>#}
+    {# <ul>#}
+        {#  for bewertung in bewertungen_on_the_produkt  #}
+            {# <li>#}
+                {#  bewertung.user.username }}: {{ bewertung.sterne }} ★ {{ bewertung.erstellt_am#}
+            {# </li>#}
+        {#  endfor  #}
+    {# </ul>#}
+
+    {#<h3>Bewertung abgeben</h3>#}
+    {# <form method="post">#}
+        {# {% csrf_token %}#}
+        {# {{ bewertung_form.as_p }}#}
+       {#  <button type="submit">Bewerten</button>#}
+    {# </form>#}
+
+    {#    Comments list #}
+    {% for comment in comments_on_the_produkt %}
+        <p class="comment-meta">{{ comment.user.username }} on {{ comment.timestamp }} with {{ comment.sterne }} ★</p>
+        <p class="comment">{{ comment.text }} </p>
+        <a href="{% url 'produkt-vote' comment.id 'H' %}">Hilfreich: {{ comment.upvotes }}</a>
+        <a href="{% url 'produkt-vote' comment.id 'N' %}">Nicht hilfreich: {{ comment.downvotes }}</a>
+        <a href="{% url 'produkt-melden' comment.id 'M' %}">Meldungen: {{ comment.meldungen }}</a> {# Später eventuell eine ansicht implementieren um versehen zu vermeiden, also eine bestätigungs ansicht #}
+        {% if request.user == comment.user %}
+            <a href="{% url 'comment-edit-delete' comment.id %}">Edit/Delete {{ comment.edit }}</a>
+        {% endif %}
+    {% endfor %}
+    <br>
+
+    {#    Add new Comments #}
+    {# <p>Leave a comment here!</p>#}
+    {# <form method="POST">#}
+    {#     {% csrf_token %}#}
+    {#     {{ comment_form.as_p }}#}
+    {#     <button type="submit">Add comment with stars</button>#}
+    {# </form>#}
+    <div class="comment-section">
+        <p class="form-title">Leave a comment here!</p>
+        <form method="POST" class="comment-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ comment_form.text.label_tag }}
+            {{ comment_form.text }}
+        </div>
+        <div class="form-group">
+            {{ comment_form.sterne.label_tag }}
+            {{ comment_form.sterne }}
+        </div>
+        <button type="submit" class="btn btn-primary">Add comment with stars</button>
+        </form>
+    </div>
+
+{#    BACK TO HOUSING LIST VIEW #}
+    <br>
+    <a href="{% url 'produkt-list' %}">
+        Back to all products
+    </a>
+
     </div>
 {% endblock %}

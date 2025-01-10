@@ -26,7 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('django.contrib.auth.urls')),  # URLs der Auth App hinzugefügt!
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),  # URL für die home View hinzugefügt!
-    path('UserAdmin/', include('UserAdmin.urls')),
+    path('userAdmin/', include('UserAdmin.urls')),
+    path('customerservice/', include('CustomerService.urls')),
     path('onlineshop/', include('Onlineshop.urls')),
 ]
 

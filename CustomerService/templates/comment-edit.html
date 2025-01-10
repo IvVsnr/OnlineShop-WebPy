@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}Comment edit{% endblock %}
+
+{% block logged_in_content %}
+
+    <h2>Comment edit</h2>
+
+    {% if not has_delete_permission %}
+        You are not authorized to edit comments.<br><br>
+    {% endif %}
+
+    {{ comment.myuser.username }} on {{ comment.timestamp }}<br>
+
+    {% if has_delete_permission %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Edit</button>
+        </form>
+
+    {% else %}
+
+        {{ comment.text }}<br>
+
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/search_style.css' %}">
+{% endblock %}
+
+{% block title %}Search Produkt{% endblock %}
+
+{% block logged_in_content %}
+    <div class="container">
+    <h2>Search Produkt</h2>
+
+    <form method="POST" class="search-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            {{ form.preis.label_tag }}
+            {{ form.preis }}
+        </div>
+        <div class="form-group">
+            {{ form.beschreibung.label_tag }}
+            {{ form.beschreibung }}
+        </div>
+        <div class="form-group">
+            {{ form.sterne.label_tag }}
+            {{ form.sterne }}
+        </div>
+            <button type="submit" class="search-button">Search</button>
+    </form>
+    <br>
+    <br>
+
+    {% if show_search_results %}
+        <b>Produkt gefunden:</b><br>
+        <div class="result">
+        <ul>
+            {% for produkt in produkt_found %}
+
+                <p><b>Produktname: {{ produkt }}</b> <a href="{% url 'produkt-detail' produkt.id %}"> Show Produkt </a></p>
+
+                {# <a href="{% url 'produkt-detail' produkt.id %}"> Show Produkt </a> #}
+
+            {% endfor %}
+        </ul>
+        </div>
+
+    {% endif %}
+    <br>
+        <a href="{% url 'produkt-list' %}">Zurück zu der Produkübersicht</a>
+    <br>
+    </div>
+{% endblock %}
