@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'Onlineshop.apps.OnlineshopConfig',
     'CustomerService'
 ]
-LOGIN_REDIRECT_URL = '/UserAdmin/profil/edit/'
+#LOGIN_REDIRECT_URL = '/UserAdmin/profil/edit/'
+LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 MIDDLEWARE = [
