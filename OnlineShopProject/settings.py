@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'UserAdmin',
     'Onlineshop.apps.OnlineshopConfig',
+    'CustomerService'
 ]
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = '/UserAdmin/profil/edit/'
 LOGOUT_REDIRECT_URL = 'home'
 
 MIDDLEWARE = [
