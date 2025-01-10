@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from Onlineshop.models import Produkt
 from .forms import ProductForm
+from ShoppingCart.models import add_item_to_shopping_cart
 
 
 # Create your views here.
@@ -17,6 +18,10 @@ def produkt_detail(request, **kwargs):
     current_produkt = Produkt.objects.get(id=produkt_id)
     current_user = request.user
     produkt_bild = current_produkt.produkt_bild
+
+    # Add to shopping cart
+    if request.method == 'POST':
+        add_item_to_shopping_cart(current_user, current_produkt)
 
 
     context = {
