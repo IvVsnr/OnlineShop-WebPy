@@ -4,6 +4,12 @@ body {
     color: hsl(20 80% 40%);
 }
 
+a.float, a.float-cart {
+    float: right;
+    margin: 5px;
+    font-size: 18px;
+}
+
 td {
     color: cornflowerblue;
 }

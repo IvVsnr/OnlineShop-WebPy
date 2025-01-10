@@ -5,6 +5,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/detail_style.css' %}">
 {% endblock %}
 
+{% block header %}
+    {% include 'header-cart.html' %}
+{% endblock %}
+
 {% block title %}Produkt detail{% endblock %}
 
 {% block content %}
@@ -55,8 +59,20 @@
     </table>
 
 
+    {% if user.is_authenticated %}
 
-    <br>
+        <form method="POST">
+            {% csrf_token %}
+            <a href="#" onclick="this.closest('form').submit(); return false;">Zum Einkaufswagen hinzufügen</a>
+        </form>
+
+    {% else %}
+
+        <br><br>
+        <a href="{% url 'login' %}?next={{ request.path }}">Einloggen, um in den Warenkorb hinzuzufügen</a>
+
+    {%  endif %}
+
     <a href="{% url 'produkt-list' %}">Zurück zu der Produkübersicht</a>
     <br>
     <a href="{% url 'produkt-delete' current_produkt.pk %}">Produkt löschen</a>

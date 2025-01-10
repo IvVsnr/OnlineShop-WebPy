@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/produkt_style.css' %}">
+{% endblock %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+    <h1>Payment</h1>
+    <br>
+    <div class="container">
+
+        {% if paid %}
+            Danke für Ihre Bestellung.<br><br>
+        {% elif shopping_cart_is_empty %}
+            Ihr Warenkorb ist leer. Es gibt nichts zu bezahlen.<br><br>
+        {% else %}
+
+            <form method="POST" class="payment-form">
+                {% csrf_token %}
+                {{ payment_form.as_p }}
+                <input type="hidden" id="shopping_cart_id" name="shopping_cart_id" value="{{ shopping_cart.id }}">
+                <button type="submit" name="Pay">Bezahlen</button>
+            </form>
+
+        {% endif %}
+
+        <br>
+        <a href="{% url 'produkt-list' %}">Zurück zu der Produkübersicht</a>
+    </div>
+{% endblock %}
