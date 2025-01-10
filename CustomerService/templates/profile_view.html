@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Profil ansehen</h1>
+  {% if profil %}
+    <p>Geburtsdatum: {{ profil.date_of_birth }}</p>
+    <img src="{{ profil.profil_image.url }}" alt="Profilbild">
+    <p><a href="{% url 'profil_edit' %}">Profil bearbeiten</a></p>
+  {% else %}
+    <p>Kein Profil vorhanden.</p>
+  {% endif %}
+{% endblock %}

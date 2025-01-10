@@ -1,0 +1,10 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Kunden-Service Dashboard</h1>
+  <ul>
+    <li><a href="{% url 'customer_service_product_list' %}">Produkte verwalten</a></li>
+    <li><a href="{% url 'customer_service_profile_view' %}">Benutzerprofil bearbeiten</a></li>
+  </ul>
+{% endblock %}

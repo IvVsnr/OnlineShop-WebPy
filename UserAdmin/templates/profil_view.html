@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dein Profil</title>
+    <link rel="stylesheet" href="{% static 'css/profil_view.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Dein Profil</h1>
+
+    {% if profil %}
+        <p><strong>Benutzername:</strong> {{ profil.user.username }}</p>
+        <p><strong>Geburtsdatum:</strong> {{ profil.date_of_birth }}</p>
+        <p><strong>Profilbild:</strong> <img src="{{ profil.profil_image.url }}" alt="Profilbild" width="100"></p>
+        <p><strong>Weitere Datei:</strong> <a href="{{ profil.some_file.url }}">Herunterladen</a></p>
+    {% else %}
+        <p>Du hast noch kein Profil. <a href="{% url 'profil_edit' %}">Erstelle ein Profil</a></p>
+    {% endif %}
+
+    <a href="{% url 'profil_edit' %}">
+        <button>Profil bearbeiten</button>
+    </a>
+</div>
+
+</body>
+</html>
