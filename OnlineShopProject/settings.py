@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'UserAdmin',
     'Onlineshop.apps.OnlineshopConfig',
+    'ShoppingCart'
 ]
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
