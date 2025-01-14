@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Produkte</h1>
+  <ul>
+    {% for produkt in produkts %}
+      <li><a href="{% url 'customer_service_product_edit' produkt.pk %}">{{ produkt.name }}</a></li>
+    {% empty %}
+      <li>Keine Produkte vorhanden.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

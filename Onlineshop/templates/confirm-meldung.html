@@ -1,0 +1,16 @@
+{% load static %}
+{% block title %}Kommentar melden{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail_style.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2>Möchten Sie den Kommentar von {{ comment.user.username }} wirklich melden?</h2>
+
+  <form method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Bestätigen</button>
+      <a href="{% url 'produkt-detail' comment.produkt.pk %}" class="btn btn-secondary">Abbrechen</a>
+  </form>
+{% endblock %}

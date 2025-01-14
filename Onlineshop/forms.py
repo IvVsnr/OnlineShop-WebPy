@@ -50,7 +50,7 @@ class SearchForm(forms.ModelForm):
     sterne = forms.IntegerField(required=False)
 
     class Meta:
-        model = Comment
+        model = Produkt
         fields = ['name', 'preis', 'beschreibung', 'sterne']
 
 #class BewertungsForm(forms.ModelForm):
@@ -60,3 +60,4 @@ class SearchForm(forms.ModelForm):
 #        widgets = {
 #            'sterne': forms.Select(choices=[(i, f"{i} Sterne") for i in range(1, 6)]),
 #        }
+

@@ -1,9 +1,14 @@
+
 from math import floor
 
-from django.db.models import Q
+from django.db.models import Q, Avg
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 
 from Onlineshop.models import Produkt, Comment
+from ShoppingCart.models import add_item_to_shopping_cart
+from UserAdmin.forms import BenutzerProfilForm
+from UserAdmin.models import MyUser
 from .forms import ProductForm, SearchForm, CommentForm, CommentEditForm
 from django.contrib import messages
 from django.views.generic import ListView, UpdateView
@@ -41,17 +46,25 @@ def meldung(request, pk: str, melden: str):
         messages.error(request, "Bitte melden Sie sich an, um abzustimmen.")
         return redirect('login')
     user = request.user
+    # Holen des Kommentars
     try:
         comment = Comment.objects.get(id=pk)
-        success = comment.meld(user, melden)
+    except Comment.DoesNotExist:
+        print("Comment not found.")
+        return redirect('produkt-list')
+
+    # Wenn die Anfrage ein POST ist, dann melden wir den Kommentar
+    if request.method == 'POST':
+        success = comment.meld(request.user, melden)
         if not success:
             messages.error(request, "Sie haben die Bewertung bereits gemeldet!")
         else:
-            messages.error(request, "Sie haben die Bewertung gemeldet!")
-    except Comment.DoesNotExist:
-        print("Comment not found.")
+            messages.success(request, "Sie haben die Bewertung gemeldet!")
 
-    return redirect('produkt-detail', pk=comment.produkt.pk)
+        return redirect('produkt-detail', pk=comment.produkt.pk)
+
+    # Wenn die Anfrage GET ist, zeigen wir die Bestätigungsseite an
+    return render(request, 'confirm-meldung.html', {'comment': comment})
 
 def produkt_detail(request, **kwargs):
     if not request.user.is_authenticated:
@@ -62,13 +75,16 @@ def produkt_detail(request, **kwargs):
     current_user = request.user
     produkt_bild = current_produkt.produkt_bild
 
+    # Add to shopping cart
+    if request.method == 'POST':
+        add_item_to_shopping_cart(current_user, current_produkt)
+
     # Durchschnittsbewertung abrufen und Sterne vorbereiten
     durchschnittsbewertung = floor(current_produkt.durchschnittsterne())
     total_stars = 5  # Anzahl der Sterne
-    sterne_bewertung = ['★' if i < durchschnittsbewertung else '☆' for i in range(total_stars)]
+    sterne_bewertung = ['★' if i < durchschnittsbewertung else '☆' for i in range(total_stars)] #nochmal angucken
 
     comments = Comment.objects.filter(produkt=current_produkt)
-    #bewertungen = Bewertung.objects.filter(produkt=current_produkt)
 
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -107,7 +123,7 @@ def produkt_detail(request, **kwargs):
         'comment_form': CommentForm,
         'bewertung_form': CommentForm
     }
-#Funktioniert soweit nur noch, exeption wenn man schon bewertet hat hinzufügen, ansosnten noch hilfreich oder nicht hinzufügen.
+
     return render(request, 'produkt-detail.html', context)
 
 def produkt_add(request):
@@ -142,7 +158,6 @@ def produkt_delete(request, **kwargs):
 
 
 def produkt_search(request):
-
     if request.method == 'POST':
 
         search_string_name = request.POST['name']
@@ -153,11 +168,11 @@ def produkt_search(request):
 
         produkt_found = Produkt.objects.filter(
             Q(name__exact=search_string_name)
-            & Q(beschreibung__contains=search_string_beschreibung)
+            | Q(beschreibung__exact=search_string_beschreibung)
             | Q(preis__exact=searched_preis)
             #& Q(sterne__exact=search_string_sterne)
         )
-
+        #wegen sternen gucken nochmal
         if search_string_sterne:
             search_sterne = int(search_string_sterne)
             produkt_found = [
@@ -165,20 +180,12 @@ def produkt_search(request):
                 if produkt.durchschnittsterne() == search_sterne
             ]
 
-        # alternative für stern suche:
-        #if search_string_sterne:
-        #    search_sterne = int(search_string_sterne)
-        #    produkt_found = produkt_found.annotate(
-        #        durchschnitt_sterne=Avg('bewertungen__sterne')
-        #    ).filter(durchschnitt_sterne__gte=search_sterne)
-
         form_in_function_based_view = SearchForm()
 
         context = {
             'show_search_results': True,
             'form': form_in_function_based_view,
             'produkt_found': produkt_found,
-            #'produkt_foundd': produkt_foundd,
         }
 
     else:  # GET
@@ -202,7 +209,6 @@ class BewertungDeleteView(ListView):
 
         context = super(BewertungDeleteView, self).get_context_data(**kwargs)
         myuser = self.request.user
-#Funktioniert also der edit, nur noch delete und halt dass der user es nur machen kann wenn er auch den commentar verfasst hat
         context['has_delete_permission'] = not myuser.is_anonymous and myuser.has_delete_permission()
 
         return context
@@ -249,3 +255,22 @@ def bewertung_edit_delete(request, comment_id: int):
         }
 
         return render(request, 'bewertung-edit-delete.html', context)
+
+def user_profile(request): #profil bearbeiten noch implementieren
+    user = request.user
+    return render(request, 'profil_view.html', {'user': user})
+
+#def profile_edit(request, comment_id: int):
+    #redirect('produkt-list')
+
+class ProfileEdit(UpdateView):
+    model = MyUser
+    form_class = BenutzerProfilForm
+    template_name = 'profil_edit.html'
+    success_url = reverse_lazy('produkt-list')
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileEdit, self).get_context_data(**kwargs)
+        myuser = self.request.user
+        context['has_delete_permission'] = self.request.user == myuser
+        return context

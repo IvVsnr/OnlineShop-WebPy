@@ -8,10 +8,11 @@
 {% block title %}Produkt detail{% endblock %}
 
 {% block content %}
+    {% include 'header.html' %}
     <div class="container">
         <h2>Produkt detail</h2>
 
-    {# Meldung wenn ein User schon ein Produkt bewertet hat #}
+    {# Meldung wenn ein User schon ein Produkt bewertet hat #} {# Meldungen wenn zum einkaufswagen hinzugefügt dann anzeigen lassen und für alle anderen funktionen #}
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -71,28 +72,29 @@
         </tr>
     </table>
 
-    <br>
-    <a href="{% url 'produkt-list' %}">Zurück zu der Produkübersicht</a>
-    <br>
-    {% if request.user.has_delete_permission %} {# Dadurch kann nur der Berechtigte das Produkt löschen #}
+    {# Warenkorb #}
+    {% if request.user.is_authenticated %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <a href="#" onclick="this.closest('form').submit(); return false;">Zum Einkaufswagen hinzufügen</a>
+        </form>
+
+    {% else %}
+
+        <br><br>
+        <a href="{% url 'login' %}?next={{ request.path }}">Einloggen, um in den Warenkorb hinzuzufügen</a>
+
+    {%  endif %}
+
+    {# Produkt löschen, wenn berechtigt #}
+    {% if request.user.has_delete_permission %}
         <a href="{% url 'produkt-delete' current_produkt.pk %}">Produkt löschen</a>
     {% endif %}
-
-    {# <h3>Bewertungen</h3>#}
-    {# <ul>#}
-        {#  for bewertung in bewertungen_on_the_produkt  #}
-            {# <li>#}
-                {#  bewertung.user.username }}: {{ bewertung.sterne }} ★ {{ bewertung.erstellt_am#}
-            {# </li>#}
-        {#  endfor  #}
-    {# </ul>#}
-
-    {#<h3>Bewertung abgeben</h3>#}
-    {# <form method="post">#}
-        {# {% csrf_token %}#}
-        {# {{ bewertung_form.as_p }}#}
-       {#  <button type="submit">Bewerten</button>#}
-    {# </form>#}
+    {# Produkt update, wenn berechtigt #}
+    {% if request.user.has_delete_permission%}
+        <a href="{% url 'customer_service_produkt_edit' current_produkt.pk%}">Update {{ produkt.edit }}</a>
+    {% endif %}
 
     {#    Comments list #}
     {% for comment in comments_on_the_produkt %}
@@ -101,19 +103,17 @@
         <a href="{% url 'produkt-vote' comment.id 'H' %}">Hilfreich: {{ comment.upvotes }}</a>
         <a href="{% url 'produkt-vote' comment.id 'N' %}">Nicht hilfreich: {{ comment.downvotes }}</a>
         <a href="{% url 'produkt-melden' comment.id 'M' %}">Meldungen: {{ comment.meldungen }}</a> {# Später eventuell eine ansicht implementieren um versehen zu vermeiden, also eine bestätigungs ansicht #}
-        {% if request.user == comment.user %}
+        {% if request.user == comment.user%}
             <a href="{% url 'comment-edit-delete' comment.id %}">Edit/Delete {{ comment.edit }}</a>
+        {% endif %}
+        {% if request.user.has_delete_permission%}
+            <a href="{% url 'comment-delete' comment.id%}">Delete {{ comment.delete }}</a>
+            <a href="{% url 'delete-comment' comment.id %}" class="btn btn-danger">Löschen</a>
         {% endif %}
     {% endfor %}
     <br>
 
-    {#    Add new Comments #}
-    {# <p>Leave a comment here!</p>#}
-    {# <form method="POST">#}
-    {#     {% csrf_token %}#}
-    {#     {{ comment_form.as_p }}#}
-    {#     <button type="submit">Add comment with stars</button>#}
-    {# </form>#}
+    {# Comment #}
     <div class="comment-section">
         <p class="form-title">Leave a comment here!</p>
         <form method="POST" class="comment-form">
@@ -137,4 +137,6 @@
     </a>
 
     </div>
+
 {% endblock %}
+

@@ -1,6 +1,10 @@
 {% extends 'home.html' %}
 {% load static %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail_style.css' %}">
+{% endblock %}
+
 {% block title %}Comment delete{% endblock %}
 
     <h2>Comment delete</h2>

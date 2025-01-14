@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Benutzerrechte zuweisen: {{ user_to_edit.username }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Speichern</button>
+</form>
+<a href="{% url 'myuser_list' %}">Zurück zur Benutzerliste</a>
+{% endblock %}

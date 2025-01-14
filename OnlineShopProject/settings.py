@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'UserAdmin.apps.UseradminConfig',
     'Onlineshop.apps.OnlineshopConfig',
-    'CustomerService.apps.CustomerserviceConfig'
+    'CustomerService.apps.CustomerserviceConfig',
+    'ShoppingCart'
 ]
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
@@ -129,7 +130,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_ROOT = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'UserAdmin.MyUser'

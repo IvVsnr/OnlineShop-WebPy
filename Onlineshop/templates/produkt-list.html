@@ -6,8 +6,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/produkt_style.css' %}">
 {% endblock %}
 
+{#  {% block header %}#}
+{#  {% include 'header-cart.html' %}#}
+{#  {% endblock %}#}
+
 {% block content %}
     {% include 'header.html' %}
+    {#  {% include 'header-cart.html' %}#}
 
     <div class="container">
         <h2>Produktliste</h2>
@@ -26,8 +31,9 @@
         {% endfor %}
     </ul>
     <br>
+    {% if request.user.has_delete_permission %}
     <a href="{% url 'produkt-add' %}">Add a new Produkt</a>
-
+    {% endif %}
     </div>
 
     {% include 'footer.html' %}

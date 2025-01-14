@@ -35,7 +35,7 @@ class Produkt(models.Model):
     name = models.CharField(max_length=200)
     beschreibung = models.TextField(max_length=1000)
     preis = models.DecimalField(max_digits=10, decimal_places=2)
-    produkt_bild = models.ImageField(upload_to='produkt_bilder/', null=True, blank=True)
+    produkt_bild = models.ImageField(upload_to='produkt_bilder/', null=True, blank=True) #beim profile ändern in 'profile_images/' und dann den AbstractUser nochmal
     produkt_pdf = models.FileField(upload_to='produkt_pdfs/', null=True, blank=True)
     produkt_typ = models.CharField(max_length=100, choices=PRODUKT_TYPES)
 
@@ -60,10 +60,9 @@ class Produkt(models.Model):
                 total_sterne += b.sterne if b.sterne is not None else 0  # Falls sterne None ist, wird 0 verwendet
             return total_sterne / bewertungen.count() if bewertungen.count() > 0 else 0  # Vermeidet Division durch 0
         return 0
-    #wieso wird das produkt mit 2 sternen nicht angezeigt?
 
 
-class Comment(models.Model):    #Kommentar kann man dalassen, jetzt noch Sterne berwertung hinzufügen und hilfreich oder nicht und melde funktion.
+class Comment(models.Model):
 
     text = models.TextField(max_length=500)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -189,3 +188,14 @@ class Melden(models.Model):
 
     def __repr__(self):
         return f'{self.melden} on {self.comment} by {self.user.username} ({self.timestamp})'
+
+class BenutzerProfil(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #oder mit OneToOneFiled
+    username = models.CharField(max_length=50)
+    userlastname = models.CharField(max_length=50)
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    some_file = models.FileField(upload_to='some_files/', null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}"

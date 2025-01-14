@@ -1,39 +1,33 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import User
 import random
+
+from OnlineShopProject import settings
+
 
 class MyUser(AbstractUser):
 
     USER_TYPES = [
-        ('SU', 'superuser'),
-        ('CS', 'customer support'),
-        ('CU', 'customer user'),
-        ('QA', 'quality assurance')
+        ('SU', 'superuser'), #admin
+        ('CS', 'customer support'), #
+        ('CU', 'customer user') #normaler user
     ]
 
     type = models.CharField(
         max_length=2,
         choices=USER_TYPES,
-        default='SU'
+        default='CU',
     )
+    date_of_birth = models.DateField(blank=True, null=True)
 
-    profile_image = models.ImageField(upload_to='profile_images', blank=True, null=True)
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
 
     some_file = models.FileField(upload_to='uploaded_files', blank=True, null=True)
-
-    gets_discount = models.BooleanField(default=False)
 
     def has_delete_permission(self):
         return self.is_superuser_or_customer_support()
         #return self.is_superuser_or_staff()
-
-    def execute_after_login(self):
-        user_gets_randomly_selected_for_discount = random.choice([True, False])
-
-        if user_gets_randomly_selected_for_discount:
-            self.gets_discount = True
-            self.save()
-
 
     def is_superuser_or_customer_support(self):
         return self.type == 'SU' or self.type == 'CS'
@@ -43,3 +37,9 @@ class MyUser(AbstractUser):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} )'
+
+#class BenutzerProfil(models.Model):
+#    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profil')
+#
+#    def __str__(self):
+#        return f"{self.user.username} Profil"
