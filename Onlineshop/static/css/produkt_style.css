@@ -1,0 +1,91 @@
+/* Allgemeine Layout-Einstellungen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2c3e50;
+}
+
+/* Stil für die Produktliste */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.produkt-item {
+    background-color: #ecf0f1;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.produkt-item:hover {
+    background-color: #bdc3c7;
+}
+
+.produkt-item a {
+    font-size: 18px;
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.produkt-item a:hover {
+    text-decoration: underline;
+}
+
+/* Beschreibung des Produkts */
+.produkt-item p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.produkt-item span {
+    font-weight: bold;
+    color: #2980b9;
+}
+
+.produkt-item p span {
+    color: #34495e;
+}
+
+/* Stil für den Link "Add a new Produkt" */
+a {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #27ae60;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #27ae60;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #27ae60;
+    color: #fff;
+}

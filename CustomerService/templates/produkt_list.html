@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/produkt-list.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Produkte</h1>
+  <ul>
+    {% for produkt in produkts %}
+      <li><a href="{% url 'customer_service_product_edit' produkt.pk %}">{{ produkt.name }}</a></li>
+    {% empty %}
+      <li>Keine Produkte vorhanden.</li>
+    {% endfor %}
+  <div>
+      <li><a href="{% url 'customer_service_dashboard' %}">Zurück zum Dashboard</a> </li>
+  </div>
+  </ul>
+{% endblock %}

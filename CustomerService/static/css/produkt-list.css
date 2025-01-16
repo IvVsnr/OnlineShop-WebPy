@@ -1,0 +1,78 @@
+/* Allgemeine Layout-Einstellungen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Container für den gesamten Inhalt */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Titel der Produktliste */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Styling für die Produktliste */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Einzelnes Produkt */
+li {
+    background-color: #ecf0f1;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+li:hover {
+    background-color: #bdc3c7;
+}
+
+/* Link zum Produkt */
+a {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #27ae60;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #27ae60;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+/* Wenn keine Produkte vorhanden sind */
+li.no-products {
+    background-color: #ffdddd;
+    text-align: center;
+    font-style: italic;
+    color: #e74c3c;
+}

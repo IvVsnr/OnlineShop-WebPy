@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wählen Sie Ihre Option</title>
+</head>
+<body>
+    <h1>Willkommen, {{ user.username }}!</h1>
+    <p>Wohin möchten Sie gehen?</p>
+
+    <div>
+        <a href="{% url 'customer_service_dashboard' %}">Zum Dashboard</a>
+    </div>
+
+    <div>
+        <a href="{% url 'produkt-list' %}">Onlineshop  </a>
+    </div>
+</body>
+</html>

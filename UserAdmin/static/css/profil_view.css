@@ -1,0 +1,88 @@
+/* Allgemeine Layout-Einstellungen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Container für den Profilinhalt */
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Profilüberschrift */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Stil für die Profilinformationen */
+p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+strong {
+    color: #2980b9;
+}
+
+/* Stil für das Profilbild */
+.profile-image {
+    display: block;
+    max-width: 200px;
+    margin: 20px auto;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+}
+
+/* Link zum Bearbeiten des Profils */
+a {
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #3498db;
+    font-weight: bold;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2980b9;
+}
+
+/* Wenn kein Profilbild vorhanden ist */
+.no-profile {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #e74c3c;
+    font-style: italic;
+}
+
+/* Responsivität für mobile Geräte */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+}

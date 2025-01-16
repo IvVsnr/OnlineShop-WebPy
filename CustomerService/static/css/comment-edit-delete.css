@@ -1,0 +1,95 @@
+/* Allgemeine Layout-Einstellungen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+/* Container für den Hauptinhalt */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Titel */
+h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Kommentarbereich */
+.comment-info {
+    font-size: 14px;
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+.comment-text {
+    font-size: 14px;
+    color: #2c3e50;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Styles für den Fall, dass der Benutzer nicht berechtigt ist, Kommentare zu bearbeiten oder zu löschen */
+.no-permission {
+    color: #e74c3c;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Formular für das Bearbeiten und Löschen von Kommentaren */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Buttons für Bearbeiten und Löschen */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button[name="edit"] {
+    background-color: #27ae60;
+    color: white;
+    border-color: #27ae60;
+}
+
+button[name="edit"]:hover {
+    background-color: #2ecc71;
+}
+
+button[name="delete"] {
+    background-color: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+}
+
+button[name="delete"]:hover {
+    background-color: #c0392b;
+}
+
+/* Eingabefelder für das Formular */
+input[type="hidden"] {
+    display: none;
+}

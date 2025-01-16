@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/produkt-edit.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Produkt bearbeiten: {{ produkt.name }}</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Speichern</button>
+  </form>
+{% endblock %}

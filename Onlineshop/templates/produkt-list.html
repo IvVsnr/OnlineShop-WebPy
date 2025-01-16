@@ -1,0 +1,40 @@
+
+{% extends 'home.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/produkt_style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    {% include 'header.html' %}
+
+    <div class="container">
+        <h2>Produktliste</h2>
+
+    <ul>
+        {% for current_produkt in all_produkts %}
+            <li class="produkt-item">
+                <a href="{{ current_produkt.id }}/"><b>{{ current_produkt.name }}</b></a>
+                <br>
+                <p>
+                    <span>Produkt Typ:</span>{{ current_produkt.produkt_typ }} /
+                    <span>Preis:</span>{{ current_produkt.preis }}<span>€</span>
+                </p>
+                {% if current_produkt.produkt_bild %}
+                        <img src="{{ current_produkt.produkt_bild.url }}" alt="Bild von {{ current_produkt.name }}" style="max-width: 100px; max-height: 100px;">
+                    {% else %}
+                        <p>Kein Bild verfügbar</p>
+                {% endif %}
+            </li>
+
+        {% endfor %}
+    </ul>
+{#    <br>#}
+{#    <a href="{% url 'produkt-add' %}">Add a new Produkt</a>#}
+
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

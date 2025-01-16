@@ -1,0 +1,86 @@
+/* Allgemeine Layout-Einstellungen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Container für die Bestätigung des Löschens */
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Titel für die Bestätigung */
+h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Formular */
+form {
+    text-align: center;
+}
+
+/* Buttons */
+button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #c0392b;
+}
+
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #7f8c8d;
+    font-size: 16px;
+    text-decoration: none;
+    border: 2px solid #7f8c8d;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #7f8c8d;
+    color: white;
+}
+
+/* Responsivität */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    button, a {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
